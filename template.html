@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Historical Source Analysis</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    .form-container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 2rem;
+    }
+
+    h2 {
+      font-weight: normal;
+      margin-bottom: 1rem;
+      border-left: 4px solid #1a73e8;
+      padding-left: 10px;
+    }
+
+    h3 {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    section {
+      display: none;
+      margin-bottom: 2rem;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button.nav-btn {
+      background-color: #e8f0fe;
+      color: #1a73e8;
+      border: none;
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 1rem;
+      margin-right: 10px;
+    }
+
+    button.submit-btn {
+      background-color: #1a73e8;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .input-group {
+      margin-bottom: 1rem;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .input-with-remove {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .input-with-remove input {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h1 style="margin-bottom: 2rem; font-size: 1.5rem;">📚 Historical Source Analysis</h1>
+
+  <form id="sourceAnalysisForm">
+
+    <!-- Origin Section -->
+    <section class="active">
+      <h2>Origin</h2>
+
+      <h3>Who created the source?</h3>
+      <div id="originWhoInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Enter author or creator..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('originWhoInputs')">+ Add Context</button>
+
+      <h3>When and where was it produced?</h3>
+      <div id="originWhenWhereInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Enter date and location..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('originWhenWhereInputs')">+ Add Context</button>
+
+      <h3>Is it primary or secondary?</h3>
+      <div id="originTypeInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Primary or Secondary?" />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('originTypeInputs')">+ Add Context</button>
+
+      <h3>What is the background of the author, and how might that affect the perspective?</h3>
+      <div id="originBackgroundInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Describe author's background..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('originBackgroundInputs')">+ Add Context</button>
+    </section>
+
+    <!-- Purpose Section -->
+    <section>
+      <h2>Purpose</h2>
+
+      <h3>Why was the source created?</h3>
+      <div id="purposeWhyInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Reason for creation..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('purposeWhyInputs')">+ Add Context</button>
+
+      <h3>Who was the intended audience?</h3>
+      <div id="purposeAudienceInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Intended readers/viewers..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('purposeAudienceInputs')">+ Add Context</button>
+
+      <h3>Was it meant to inform, persuade, record, or entertain?</h3>
+      <div id="purposeIntentInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Inform, persuade, record, or entertain?" />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('purposeIntentInputs')">+ Add Context</button>
+
+      <h3>Is there any potential bias due to the author’s intention?</h3>
+      <div id="purposeBiasInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Potential bias or slant..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('purposeBiasInputs')">+ Add Context</button>
+    </section>
+
+    <!-- Content Section -->
+    <section>
+      <h2>Content</h2>
+
+      <h3>What information does the source provide?</h3>
+      <div id="contentInfoInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Key facts or details..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('contentInfoInputs')">+ Add Context</button>
+
+      <h3>What key details, facts, or arguments are included?</h3>
+      <div id="contentDetailsInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Important points..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('contentDetailsInputs')">+ Add Context</button>
+
+      <h3>What is left out or missing?</h3>
+      <div id="contentMissingInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="What's missing?" />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('contentMissingInputs')">+ Add Context</button>
+    </section>
+
+    <!-- Value Section -->
+    <section>
+      <h2>Value</h2>
+
+      <h3>What makes this source useful for historians studying your topic?</h3>
+      <div id="valueUsefulInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="How is it valuable?" />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('valueUsefulInputs')">+ Add Context</button>
+
+      <h3>Does the origin provide unique insight?</h3>
+      <div id="valueInsightInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Eyewitness account, insider view, etc." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('valueInsightInputs')">+ Add Context</button>
+
+      <h3>Does the purpose add credibility or context?</h3>
+      <div id="valueCredibilityInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Official report, personal letter, etc." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('valueCredibilityInputs')">+ Add Context</button>
+
+      <h3>What can you learn about the period, people, or events?</h3>
+      <div id="valueLearnInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="From culture, politics, society..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('valueLearnInputs')">+ Add Context</button>
+
+      <h3>Reference specific evidence from the document</h3>
+      <div id="valueEvidenceInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Quote or example..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('valueEvidenceInputs')">+ Add Context</button>
+    </section>
+
+    <!-- Limits Section -->
+    <section>
+      <h2>Limits</h2>
+
+      <h3>What reduces the reliability or usefulness of the source?</h3>
+      <div id="limitsReliabilityInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Unreliable aspects..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('limitsReliabilityInputs')">+ Add Context</button>
+
+      <h3>Is there bias, propaganda, or a limited perspective?</h3>
+      <div id="limitsBiasInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Examples of bias..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('limitsBiasInputs')">+ Add Context</button>
+
+      <h3>Is the author too close or too far from the events?</h3>
+      <div id="limitsPerspectiveInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Too involved or detached?" />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('limitsPerspectiveInputs')">+ Add Context</button>
+
+      <h3>What information is missing, exaggerated, or left out?</h3>
+      <div id="limitsMissingInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Exaggerations or omissions..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('limitsMissingInputs')">+ Add Context</button>
+
+      <h3>Reference specific evidence from the document</h3>
+      <div id="limitsEvidenceInputs" class="input-group">
+        <div class="input-with-remove">
+          <input type="text" placeholder="Quote or example..." />
+        </div>
+      </div>
+      <button type="button" class="add-btn nav-btn" onclick="addInput('limitsEvidenceInputs')">+ Add Context</button>
+    </section>
+
+    <!-- Submit Button -->
+    <div class="button-group">
+      <button type="button" id="prevBtn" class="nav-btn" onclick="nextPrev(-1)">⬅️ Back</button>
+      <p id="waitingMessage" style="display: none;"><i>Please wait...</i></p>
+      <button type="button" id="nextBtn" class="submit-btn" onclick="nextPrev(1)">Next ➡️</button>
+    </div>
+
+  </form>
+</div>
+
+<script>
+  let currentTab = 0;
+
+  const formSections = document.querySelectorAll("section");
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  const waitingMessage = document.getElementById("waitingMessage");
+
+  function showTab(n) {
+    formSections.forEach((sec, i) => sec.classList.remove("active"));
+    formSections[n].classList.add("active");
+
+    if (n === 0) {
+      prevBtn.style.display = "none";
+    } else {
+      prevBtn.style.display = "inline-block";
+    }
+
+    if (n === formSections.length - 1) {
+      nextBtn.textContent = "Submit";
+    } else {
+      nextBtn.textContent = "Next ➡️";
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function nextPrev(n) {
+    if (n === 1 && !validateForm()) return false;
+
+    currentTab += n;
+
+    if (currentTab >= formSections.length) {
+      submitForm();
+      return false;
+    }
+
+    showTab(currentTab);
+  }
+
+  function validateForm() {
+    const inputs = formSections[currentTab].querySelectorAll("input");
+    for (let i = 0; i < inputs.length; i++) {
+      if (!inputs[i].value.trim()) {
+        inputs[i].focus();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function addInput(containerId) {
+    const container = document.getElementById(containerId);
+    const wrapper = document.createElement("div");
+    wrapper.className = "input-with-remove";
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = container.querySelector("input").placeholder;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.textContent = "×";
+    removeBtn.className = "remove-btn";
+    removeBtn.onclick = () => container.removeChild(wrapper);
+
+    wrapper.appendChild(input);
+    wrapper.appendChild(removeBtn);
+
+    // Insert after first input
+    const firstWrapper = container.querySelector(".input-with-remove");
+    if (firstWrapper) {
+      container.insertBefore(wrapper, firstWrapper.nextSibling);
+    } else {
+      container.appendChild(wrapper);
+    }
+  }
+
+function submitForm() {
+
+  waitingMessage.style.display = "block";
+
+  const data = {};
+
+  // Define the order of sections and their input groups
+  const sectionOrder = [
+    {
+      title: "Who created the source?",
+      id: "originWhoInputs",
+      section: "Origin"
+    },
+    {
+      title: "When and where was it produced?",
+      id: "originWhenWhereInputs",
+      section: "Origin"
+    },
+    {
+      title: "Is it primary or secondary?",
+      id: "originTypeInputs",
+      section: "Origin"
+    },
+    {
+      title: "Author background",
+      id: "originBackgroundInputs",
+      section: "Origin"
+    },
+    {
+      title: "Why was it created?",
+      id: "purposeWhyInputs",
+      section: "Purpose"
+    },
+    {
+      title: "Intended audience",
+      id: "purposeAudienceInputs",
+      section: "Purpose"
+    },
+    {
+      title: "Intent",
+      id: "purposeIntentInputs",
+      section: "Purpose"
+    },
+    {
+      title: "Potential bias",
+      id: "purposeBiasInputs",
+      section: "Purpose"
+    },
+    {
+      title: "Information provided",
+      id: "contentInfoInputs",
+      section: "Content"
+    },
+    {
+      title: "Details or arguments",
+      id: "contentDetailsInputs",
+      section: "Content"
+    },
+    {
+      title: "What's missing?",
+      id: "contentMissingInputs",
+      section: "Content"
+    },
+    {
+      title: "Usefulness",
+      id: "valueUsefulInputs",
+      section: "Value"
+    },
+    {
+      title: "Unique insight",
+      id: "valueInsightInputs",
+      section: "Value"
+    },
+    {
+      title: "Credibility",
+      id: "valueCredibilityInputs",
+      section: "Value"
+    },
+    {
+      title: "What can be learned?",
+      id: "valueLearnInputs",
+      section: "Value"
+    },
+    {
+      title: "Supporting evidence",
+      id: "valueEvidenceInputs",
+      section: "Value"
+    },
+    {
+      title: "Reliability issues",
+      id: "limitsReliabilityInputs",
+      section: "Limits"
+    },
+    {
+      title: "Bias or propaganda",
+      id: "limitsBiasInputs",
+      section: "Limits"
+    },
+    {
+      title: "Author perspective",
+      id: "limitsPerspectiveInputs",
+      section: "Limits"
+    },
+    {
+      title: "Misrepresentation",
+      id: "limitsMissingInputs",
+      section: "Limits"
+    },
+    {
+      title: "Supporting evidence",
+      id: "limitsEvidenceInputs",
+      section: "Limits"
+    }
+  ];
+
+  // Collect data in the defined order
+  sectionOrder.forEach(group => {
+    
+    const inputs = document.querySelectorAll(`#${group.id} input`);
+    const values = Array.from(inputs)
+      .map(i => i.value.trim())
+      .filter(Boolean);
+
+    data[group.title] = {
+      ans: values,
+      section: group.section
+    };
+
+  });
+
+  google.script.run.withSuccessHandler(function(response) {
+      //alert(JSON.stringify(data));
+      google.script.host.close();
+  }).processData(data);
+}
+
+  showTab(currentTab);
+</script>
+
+</body>
+</html>
