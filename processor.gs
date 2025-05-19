@@ -20,8 +20,11 @@ class UI {
 }
 
 function launchOutliner() {
+
+  var template = UrlFetchApp.fetch("https://raw.githubusercontent.com/WillDev12/OPCVL-GD-Helper-GS/refs/heads/main/template.html").getContentText();
+
   var ui = DocumentApp.getUi();
-  var html = HtmlService.createHtmlOutputFromFile("template")
+  var html = HtmlService.createHtmlOutput(template)
     .setTitle("")
     .setWidth("600")
     .setHeight("400");
