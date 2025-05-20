@@ -1,8 +1,8 @@
-function myFunction() {
+function myFunction(funcs) {
 
   Logger.log("Hello world!");
 
-  function2();
+  funcs.function2();
 
 }
 
@@ -14,8 +14,8 @@ function function2() {
 
 }
 
-function function3() {
+function function3(funcs) {
 
-  Logger.log(function2());
+  Logger.log(funcs.function2());
 
 }
