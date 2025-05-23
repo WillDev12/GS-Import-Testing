@@ -1,5 +1,3 @@
-/* Still in development, don't try anything with this yet */
-
 (function() {
   // ---- Private Helper Functions ----
   const getKey = key => PropertiesService.getScriptProperties().getProperty(key);
