@@ -1,3 +1,5 @@
+/* Still under development and not suitable for use/sharing */
+
 (function() {
   // ---- Private Helper Functions ----
   const getKey = key => PropertiesService.getScriptProperties().getProperty(key);
@@ -11,7 +13,7 @@
   }
 
   function extractFunctionsFromString(codeString) {
-    var functionRegex = /function\\s+(\\w+)\\s*\\(([^)]*)\\)\\s*\\{([\\s\\S]*?)\\}/g;
+    var functionRegex = /function\s+(\w+)\s*\(([^)]*)\)\s*\{([\s\S]*?)\}/g;
     var functionsObject = {};
     var match;
     while ((match = functionRegex.exec(codeString)) !== null) {
@@ -39,21 +41,21 @@
   }
 
   function extractRequirementsFromString(code) {
-    const configBlock = code.match(/\\/\\*\\s*@GSPM-Config([\\s\\S]*?)\\*\\//);
+    const configBlock = code.match(/\/\*\s*@GSPM-Config([\s\S]*?)\*\//);
     if (!configBlock) return [];
-    const reqSection = configBlock[1].match(/REQ:([\\s\\S]*?)(?:\\n[A-Z]+:|$)/);
+    const reqSection = configBlock[1].match(/REQ:([\s\S]*?)(?:\n[A-Z]+:|$)/);
     if (!reqSection) return [];
     return reqSection[1]
-      .split('\\n')
+      .split('\n')
       .map(line => line.trim())
       .filter(line => line.startsWith('-'))
       .map(line => line.replace(/^-\s*/, ''));
   }
 
   function extractNameFromString(code) {
-    const configBlock = code.match(/\\/\\*\\s*@GSPM-Config([\\s\\S]*?)\\*\\//);
+    const configBlock = code.match(/\/\*\s*@GSPM-Config([\s\S]*?)\*\//);
     if (!configBlock) return null;
-    const nameMatch = configBlock[1].match(/NAME:\\s*(.+)/);
+    const nameMatch = configBlock[1].match(/NAME:\s*(.+)/);
     return nameMatch ? nameMatch[1].trim() : null;
   }
 
@@ -117,7 +119,7 @@
   function uninstall(pkgs) {
     pkgs.forEach(function(pkg) {
       if (getKey(pkg) != null) PropertiesService.getScriptProperties().deleteProperty(pkg);
-      else throw new Error(\`Package not found -- \${pkg}\`);
+      else throw new Error(`Package not found -- ${pkg}`);
       Logger.log("Package uninstalled -- " + pkg);
     });
   }
@@ -134,5 +136,6 @@
     importPkg: importPkg,
     requirePkg: requirePkg,
     uninstall: uninstall
+    // If you want getDir public, add: getDir: getDir
   };
-})()
+})();
